@@ -1,0 +1,515 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name Networking
+import Combine
+import Foundation
+import Swift
+import _Concurrency
+import _StringProcessing
+extension Networking.NetworkingClient {
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+}
+extension Networking.NetworkingClient {
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+}
+extension Networking.NetworkingClient {
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+}
+extension Networking.NetworkingClient {
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+}
+extension Networking.NetworkingClient {
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+}
+extension Networking.NetworkingClient {
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+}
+extension Combine.Publisher where Self.Output == Foundation.Data {
+  public func toJSON() -> Combine.AnyPublisher<Any, any Swift.Error>
+}
+extension Networking.NetworkingClient {
+  public func post(_ route: Swift.String, params: Networking.Params = Params(), multipartData: Networking.MultipartData) -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params(), multipartData: Networking.MultipartData) -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params(), multipartData: Networking.MultipartData) -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params(), multipartData: [Networking.MultipartData]) -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params(), multipartData: [Networking.MultipartData]) -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params(), multipartData: [Networking.MultipartData]) -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+}
+public protocol NetworkingJSONDecodable {
+  static func decode(_ json: Any) throws -> Self
+}
+extension Networking.NetworkingClient {
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+}
+extension Networking.NetworkingClient {
+  public func getRequest(_ route: Swift.String, params: Networking.Params = Params()) -> Networking.NetworkingRequest
+  public func postRequest(_ route: Swift.String, params: Networking.Params = Params()) -> Networking.NetworkingRequest
+  public func putRequest(_ route: Swift.String, params: Networking.Params = Params()) -> Networking.NetworkingRequest
+  public func patchRequest(_ route: Swift.String, params: Networking.Params = Params()) -> Networking.NetworkingRequest
+  public func deleteRequest(_ route: Swift.String, params: Networking.Params = Params()) -> Networking.NetworkingRequest
+}
+extension Networking.NetworkingClient {
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+}
+extension Networking.NetworkingClient {
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+}
+public enum HTTPMethod : Swift.String {
+  case get
+  case put
+  case patch
+  case post
+  case delete
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum NetworkingLogLevel {
+  case off
+  case info
+  case debug
+  public static func == (a: Networking.NetworkingLogLevel, b: Networking.NetworkingLogLevel) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Foundation.URLRequest {
+  public func toCurlCommand() -> Swift.String
+}
+public protocol HttpBodyConvertible {
+  func buildHttpBodyPart(boundary: Swift.String) -> Foundation.Data
+}
+extension Networking.MultipartData : Networking.HttpBodyConvertible {
+  public func buildHttpBodyPart(boundary: Swift.String) -> Foundation.Data
+}
+public struct MultipartData {
+  public init(name: Swift.String, fileData: Foundation.Data, fileName: Swift.String, mimeType: Swift.String)
+}
+extension Swift.Dictionary : Networking.HttpBodyConvertible where Key == Swift.String, Value == any Swift.CustomStringConvertible {
+  public func buildHttpBodyPart(boundary: Swift.String) -> Foundation.Data
+}
+public class NetworkingClient {
+  public var defaultCollectionParsingKeyPath: Swift.String?
+  public var headers: [Swift.String : Swift.String]
+  public var parameterEncoding: Networking.ParameterEncoding
+  public var timeout: Foundation.TimeInterval?
+  public var sessionConfiguration: Foundation.URLSessionConfiguration
+  public var requestRetrier: Networking.NetworkRequestRetrier?
+  public var jsonDecoderFactory: (() -> Foundation.JSONDecoder)?
+  public var logLevel: Networking.NetworkingLogLevel {
+    get
+    set
+  }
+  public init(baseURL: Swift.String, timeout: Foundation.TimeInterval? = nil)
+  public func toModel<T>(_ json: Any, keypath: Swift.String? = nil) throws -> T where T : Networking.NetworkingJSONDecodable
+  public func toModel<T>(_ json: Any, keypath: Swift.String? = nil) throws -> T where T : Swift.Decodable
+  public func toModels<T>(_ json: Any, keypath: Swift.String? = nil) throws -> [T] where T : Networking.NetworkingJSONDecodable
+  public func toModels<T>(_ json: Any, keypath: Swift.String? = nil) throws -> [T] where T : Swift.Decodable
+  @objc deinit
+}
+public struct NetworkingError : Swift.Error, Foundation.LocalizedError {
+  public enum Status : Swift.Int {
+    case unknown
+    case networkUnreachable
+    case unableToParseResponse
+    case unableToParseRequest
+    case continueError
+    case switchingProtocols
+    case processing
+    case ok
+    case created
+    case accepted
+    case nonAuthoritativeInformation
+    case noContent
+    case resetContent
+    case partialContent
+    case multiStatus
+    case alreadyReported
+    case IMUsed
+    case multipleChoices
+    case movedPermanently
+    case found
+    case seeOther
+    case notModified
+    case useProxy
+    case switchProxy
+    case temporaryRedirect
+    case permenantRedirect
+    case badRequest
+    case unauthorized
+    case paymentRequired
+    case forbidden
+    case notFound
+    case methodNotAllowed
+    case notAcceptable
+    case proxyAuthenticationRequired
+    case requestTimeout
+    case conflict
+    case gone
+    case lengthRequired
+    case preconditionFailed
+    case payloadTooLarge
+    case uriTooLong
+    case unsupportedMediaType
+    case rangeNotSatisfiable
+    case expectationFailed
+    case teapot
+    case misdirectedRequest
+    case unprocessableEntity
+    case locked
+    case failedDependency
+    case upgradeRequired
+    case preconditionRequired
+    case tooManyRequests
+    case requestHeaderFieldsTooLarge
+    case unavailableForLegalReasons
+    case noResponse
+    case sslCertificateError
+    case sslCertificateRequired
+    case httpRequestSentToHTTPSPort
+    case clientClosedRequest
+    case internalServerError
+    case notImplemented
+    case badGateway
+    case serviceUnavailable
+    case gatewayTimeout
+    case httpVersionNotSupported
+    case variantAlsoNegotiates
+    case insufficientStorage
+    case loopDetected
+    case notExtended
+    case networkAuthenticationRequired
+    case cancelled
+    case badURL
+    case timedOut
+    case unsupportedURL
+    case cannotFindHost
+    case cannotConnectToHost
+    case networkConnectionLost
+    case dnsLookupFailed
+    case httpTooManyRedirects
+    case resourceUnavailable
+    case notConnectedToInternet
+    case redirectToNonExistentLocation
+    case badServerResponse
+    case userCancelledAuthentication
+    case userAuthenticationRequired
+    case zeroByteResource
+    case cannotDecodeRawData
+    case cannotDecodeContentData
+    case cannotParseResponse
+    case appTransportSecurityRequiresSecureConnection
+    case fileDoesNotExist
+    case fileIsDirectory
+    case noPermissionsToReadFile
+    case dataLengthExceedsMaximum
+    case secureConnectionFailed
+    case serverCertificateHasBadDate
+    case serverCertificateUntrusted
+    case serverCertificateHasUnknownRoot
+    case serverCertificateNotYetValid
+    case clientCertificateRejected
+    case CclientCertificateRequired
+    case cannotLoadFromNetwork
+    case cannotCreateFile
+    case cannotOpenFile
+    case cannotCloseFile
+    case cannotWriteToFile
+    case CcannotRemoveFile
+    case cannotMoveFile
+    case downloadDecodingFailedMidStream
+    case downloadDecodingFailedToComplete
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  public var status: Networking.NetworkingError.Status
+  public var code: Swift.Int {
+    get
+  }
+  public var jsonPayload: Any?
+  public init(errorCode: Swift.Int)
+  public init(status: Networking.NetworkingError.Status)
+  public init(error: any Swift.Error)
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+extension Networking.NetworkingError : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Networking.NetworkingError {
+  public static var unableToParseResponse: Networking.NetworkingError {
+    get
+  }
+  public static var unableToParseRequest: Networking.NetworkingError {
+    get
+  }
+  public static var unknownError: Networking.NetworkingError {
+    get
+  }
+}
+extension Swift.DecodingError {
+  public var description: Swift.String? {
+    get
+  }
+}
+public typealias NetworkRequestRetrier = (_ request: Foundation.URLRequest, _ error: any Swift.Error) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>?
+@objc @_inheritsConvenienceInitializers public class NetworkingRequest : ObjectiveC.NSObject {
+  public var params: Networking.Params
+  public func uploadPublisher() -> Combine.AnyPublisher<(Foundation.Data?, Foundation.Progress), any Swift.Error>
+  public func publisher() -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension Networking.NetworkingRequest : Foundation.URLSessionTaskDelegate {
+  @objc dynamic public func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+}
+public enum ParameterEncoding {
+  case urlEncoded
+  case json
+  public static func == (a: Networking.ParameterEncoding, b: Networking.ParameterEncoding) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol NetworkingService {
+  var network: Networking.NetworkingClient { get }
+}
+extension Networking.NetworkingService {
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Foundation.Data, any Swift.Error>
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Swift.Void, any Swift.Error>
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) -> Combine.AnyPublisher<Any, any Swift.Error>
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Decodable
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Swift.Collection, T : Swift.Decodable
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<T, any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) -> Combine.AnyPublisher<[T], any Swift.Error> where T : Networking.NetworkingJSONDecodable
+}
+extension Networking.NetworkingService {
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Foundation.Data
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete(_ route: Swift.String, params: Networking.Params = Params()) async throws -> Any
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func get<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func post<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func put<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func patch<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func delete<T>(_ route: Swift.String, params: Networking.Params = Params(), keypath: Swift.String? = nil) async throws -> T where T : Swift.Collection, T : Swift.Decodable
+  #endif
+}
+public typealias Params = [Swift.String : any Swift.CustomStringConvertible]
+extension Swift.Dictionary where Key == Swift.String, Value == any Swift.CustomStringConvertible {
+  public func asPercentEncodedString(parentKey: Swift.String? = nil) -> Swift.String
+}
+extension Networking.HTTPMethod : Swift.Equatable {}
+extension Networking.HTTPMethod : Swift.Hashable {}
+extension Networking.HTTPMethod : Swift.RawRepresentable {}
+extension Networking.NetworkingLogLevel : Swift.Equatable {}
+extension Networking.NetworkingLogLevel : Swift.Hashable {}
+extension Networking.NetworkingError.Status : Swift.Equatable {}
+extension Networking.NetworkingError.Status : Swift.Hashable {}
+extension Networking.NetworkingError.Status : Swift.RawRepresentable {}
+extension Networking.ParameterEncoding : Swift.Equatable {}
+extension Networking.ParameterEncoding : Swift.Hashable {}

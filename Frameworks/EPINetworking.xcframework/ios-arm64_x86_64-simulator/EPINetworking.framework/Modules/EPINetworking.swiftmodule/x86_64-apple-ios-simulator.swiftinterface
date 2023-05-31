@@ -1,0 +1,1564 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
+// swift-module-flags: -target x86_64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name EPINetworking
+import Combine
+import Combine/*.Combine*/
+import Foundation
+import Swift
+import SwiftUI
+import SwiftUI/*.SwiftUI*/
+import UIKit
+import _Concurrency
+import _StringProcessing
+public protocol AccessTokenProviding : AnyObject {
+  func provideAccessToken() -> Swift.String?
+}
+public protocol APICall {
+  var path: Swift.String { get }
+  var method: EPINetworking.HTTPMethod { get }
+  var headers: [EPINetworking.HTTPHeaderField : Swift.String]? { get }
+  var params: (any Swift.Encodable)? { get }
+}
+final public class CancelBag {
+  public init()
+  final public func cancel()
+  final public func collect(@EPINetworking.CancelBag.Builder _ cancellables: () -> [Combine.AnyCancellable])
+  @_functionBuilder public enum Builder {
+    public static func buildBlock(_ cancellables: Combine.AnyCancellable...) -> [Combine.AnyCancellable]
+  }
+  @objc deinit
+}
+extension Combine.AnyCancellable {
+  final public func store(in cancelBag: EPINetworking.CancelBag)
+}
+public enum ContentType : Swift.String, Swift.CustomStringConvertible {
+  case halJSON
+  case JSON
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum HTTPHeaderField : Swift.String, Swift.CustomStringConvertible, Swift.Equatable {
+  case accept
+  case contentType
+  case authorization
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum HTTPMethod : Swift.String {
+  case GET
+  case PATCH
+  case POST
+  case PUT
+  case DELETE
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum ParameterEncoding {
+  case json
+  case urlEncoded
+  public static func == (a: EPINetworking.ParameterEncoding, b: EPINetworking.ParameterEncoding) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Combine.Publisher {
+  public func sinkToResult(_ result: @escaping (Swift.Result<Self.Output, Self.Failure>) -> Swift.Void) -> Combine.AnyCancellable
+  public func sinkToLoadable(_ completion: @escaping (EPINetworking.Loadable<Self.Output>) -> Swift.Void) -> Combine.AnyCancellable
+}
+public struct NetworkError : Swift.Error, Swift.CustomStringConvertible {
+  public let message: Swift.String
+  public let status: EPINetworking.NetworkErrorStatus
+  public let jsonPayload: Any?
+  public var description: Swift.String {
+    get
+  }
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public var localizedDescription: Swift.String {
+    get
+  }
+  public init(message: Swift.String, status: EPINetworking.NetworkErrorStatus, jsonPayload: Any?)
+  public func decodedErrorPayload<ErrorModel>() -> ErrorModel? where ErrorModel : Swift.Decodable
+}
+public enum NetworkErrorStatus : Swift.Int {
+  case unknown
+  case networkUnreachable
+  case unableToParseResponse
+  case unableToParseRequest
+  case continueError
+  case switchingProtocols
+  case processing
+  case ok
+  case created
+  case accepted
+  case nonAuthoritativeInformation
+  case noContent
+  case resetContent
+  case partialContent
+  case multiStatus
+  case alreadyReported
+  case IMUsed
+  case multipleChoices
+  case movedPermanently
+  case found
+  case seeOther
+  case notModified
+  case useProxy
+  case switchProxy
+  case temporaryRedirect
+  case permenantRedirect
+  case badRequest
+  case unauthorized
+  case paymentRequired
+  case forbidden
+  case notFound
+  case methodNotAllowed
+  case notAcceptable
+  case proxyAuthenticationRequired
+  case requestTimeout
+  case conflict
+  case gone
+  case lengthRequired
+  case preconditionFailed
+  case payloadTooLarge
+  case uriTooLong
+  case unsupportedMediaType
+  case rangeNotSatisfiable
+  case expectationFailed
+  case teapot
+  case misdirectedRequest
+  case unprocessableEntity
+  case locked
+  case failedDependency
+  case upgradeRequired
+  case preconditionRequired
+  case tooManyRequests
+  case requestHeaderFieldsTooLarge
+  case unavailableForLegalReasons
+  case noResponse
+  case sslCertificateError
+  case sslCertificateRequired
+  case httpRequestSentToHTTPSPort
+  case clientClosedRequest
+  case internalServerError
+  case notImplemented
+  case badGateway
+  case serviceUnavailable
+  case gatewayTimeout
+  case httpVersionNotSupported
+  case variantAlsoNegotiates
+  case insufficientStorage
+  case loopDetected
+  case notExtended
+  case networkAuthenticationRequired
+  case cancelled
+  case badURL
+  case timedOut
+  case unsupportedURL
+  case cannotFindHost
+  case cannotConnectToHost
+  case networkConnectionLost
+  case dnsLookupFailed
+  case httpTooManyRedirects
+  case resourceUnavailable
+  case notConnectedToInternet
+  case redirectToNonExistentLocation
+  case badServerResponse
+  case userCancelledAuthentication
+  case userAuthenticationRequired
+  case zeroByteResource
+  case cannotDecodeRawData
+  case cannotDecodeContentData
+  case cannotParseResponse
+  case appTransportSecurityRequiresSecureConnection
+  case fileDoesNotExist
+  case fileIsDirectory
+  case noPermissionsToReadFile
+  case dataLengthExceedsMaximum
+  case secureConnectionFailed
+  case serverCertificateHasBadDate
+  case serverCertificateUntrusted
+  case serverCertificateHasUnknownRoot
+  case serverCertificateNotYetValid
+  case clientCertificateRejected
+  case clientCertificateRequired
+  case cannotLoadFromNetwork
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Swift.Dictionary {
+  public var json: Swift.String {
+    get
+  }
+}
+extension Swift.Encodable {
+  public var asDictionary: [Swift.String : any Swift.CustomStringConvertible]? {
+    get
+  }
+}
+extension Foundation.JSONDecoder {
+  public static var epiJSONDecoder: Foundation.JSONDecoder {
+    get
+  }
+}
+extension Foundation.JSONEncoder {
+  public static var epiJSONEncoder: Foundation.JSONEncoder {
+    get
+  }
+}
+extension Combine.ObservableObject {
+  public func loadableSubject<Value>(_ keyPath: Swift.WritableKeyPath<Self, EPINetworking.Loadable<Value>>) -> EPINetworking.LoadableSubject<Value>
+}
+public protocol EPINetworkingAuthorization : AnyObject {
+  func removeAuthorizationHeader()
+}
+public protocol EPINetworkingClientProtocol : EPINetworking.EPINetworkingAuthorization {
+  func call(endpoint: any EPINetworking.APICall, parameterEncoding: EPINetworking.ParameterEncoding) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  func call<Value>(endpoint: any EPINetworking.APICall, parameterEncoding: EPINetworking.ParameterEncoding) -> Combine.AnyPublisher<Value, EPINetworking.NetworkError> where Value : Swift.Decodable
+  func callAtUrl<Value>() -> Combine.AnyPublisher<Value, EPINetworking.NetworkError> where Value : Swift.Decodable
+  func callAtUrl<Value>(_ params: any Swift.Encodable) -> Combine.AnyPublisher<Value, EPINetworking.NetworkError> where Value : Swift.Decodable
+  func callAtUrl() -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  func callAtUrl(_ params: any Swift.Encodable) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+}
+@_hasMissingDesignatedInitializers final public class EPINetworkingClient {
+  @objc deinit
+}
+extension EPINetworking.EPINetworkingClient : EPINetworking.EPINetworkingClientProtocol {
+  final public func removeAuthorizationHeader()
+}
+extension EPINetworking.EPINetworkingClient {
+  final public func call<Value>(endpoint: any EPINetworking.APICall, parameterEncoding: EPINetworking.ParameterEncoding = .json) -> Combine.AnyPublisher<Value, EPINetworking.NetworkError> where Value : Swift.Decodable
+  final public func call(endpoint: any EPINetworking.APICall, parameterEncoding: EPINetworking.ParameterEncoding = .json) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  final public func callAtUrl<Value>() -> Combine.AnyPublisher<Value, EPINetworking.NetworkError> where Value : Swift.Decodable
+  final public func callAtUrl<Value>(_ params: any Swift.Encodable) -> Combine.AnyPublisher<Value, EPINetworking.NetworkError> where Value : Swift.Decodable
+  final public func callAtUrl() -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  final public func callAtUrl(_ params: any Swift.Encodable) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+}
+public struct EPINetworkingConfiguration {
+  public let baseURL: Swift.String
+  public let logLevel: EPINetworking.EPINetworkingLogLevel
+  public let accessTokenProvider: any EPINetworking.AccessTokenProviding
+  public let authenticationUpdate: (EPINetworking.NetworkError) -> Swift.Void
+  public init(baseURL: Swift.String, logLevel: EPINetworking.EPINetworkingLogLevel, accessTokenProvider: any EPINetworking.AccessTokenProviding, authenticationUpdate: @escaping (EPINetworking.NetworkError) -> Swift.Void)
+}
+final public class EPINetworkingFactory {
+  public init()
+  final public func buildRepositories(_ configuration: EPINetworking.EPINetworkingConfiguration) -> any EPINetworking.EPIRepositoriesProtocol
+  final public func buildServices(_ configuration: EPINetworking.EPINetworkingConfiguration) -> any EPINetworking.EPIServicesProtocol
+  @objc deinit
+}
+public protocol EPIRepositoriesProtocol {
+  var authenticationRepository: EPINetworking.AuthenticationRepository { get }
+  var walletProvisioningRepository: EPINetworking.WalletProvisioningRepository { get }
+  var walletRepository: EPINetworking.WalletRepository { get }
+  var p2pRepository: EPINetworking.P2PRepository { get }
+  var proxyRepository: EPINetworking.ProxyRepository { get }
+  var paymentSourceRepository: any EPINetworking.PaymentSourceRepositoryProtocol { get }
+}
+public struct EPIRepositories : EPINetworking.EPIRepositoriesProtocol {
+  public let authenticationRepository: EPINetworking.AuthenticationRepository
+  public let walletProvisioningRepository: EPINetworking.WalletProvisioningRepository
+  public let walletRepository: EPINetworking.WalletRepository
+  public let p2pRepository: EPINetworking.P2PRepository
+  public let proxyRepository: EPINetworking.ProxyRepository
+  public let paymentSourceRepository: any EPINetworking.PaymentSourceRepositoryProtocol
+  public init(authenticationRepository: EPINetworking.AuthenticationRepository, walletProvisioningRepository: EPINetworking.WalletProvisioningRepository, walletRepository: EPINetworking.WalletRepository, p2pRepository: EPINetworking.P2PRepository, proxyRepository: EPINetworking.ProxyRepository, paymentSourceRepository: any EPINetworking.PaymentSourceRepositoryProtocol)
+}
+final public class EPIRepositoriesFactory {
+  public init()
+  final public func configuredRepositories(networkingClient: any EPINetworking.EPINetworkingClientProtocol, networkingClientFactory: any EPINetworking.NetworkingFactoryProtocol) -> any EPINetworking.EPIRepositoriesProtocol
+  @objc deinit
+}
+public protocol EPIServicesProtocol {
+  var authenticationService: any EPINetworking.AuthenticationServicing { get }
+  var walletProvisioningService: any EPINetworking.WalletProvisioningServicing { get }
+  var walletService: any EPINetworking.WalletServicing { get }
+  var p2pService: any EPINetworking.P2PServicing { get }
+  var proxyService: any EPINetworking.ProxyServicing { get }
+  var paymentSourceService: any EPINetworking.PaymentSourceServicing { get }
+}
+public struct EPIServices : EPINetworking.EPIServicesProtocol {
+  public let authenticationService: any EPINetworking.AuthenticationServicing
+  public let walletProvisioningService: any EPINetworking.WalletProvisioningServicing
+  public let walletService: any EPINetworking.WalletServicing
+  public let p2pService: any EPINetworking.P2PServicing
+  public let proxyService: any EPINetworking.ProxyServicing
+  public let paymentSourceService: any EPINetworking.PaymentSourceServicing
+}
+final public class EPIServicesFactory {
+  public init()
+  final public func configuredServices(repositories: any EPINetworking.EPIRepositoriesProtocol) -> any EPINetworking.EPIServicesProtocol
+  @objc deinit
+}
+public enum EPINetworkingLogLevel {
+  case off
+  case info
+  case debug
+  public static func == (a: EPINetworking.EPINetworkingLogLevel, b: EPINetworking.EPINetworkingLogLevel) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol NetworkingFactoryProtocol : AnyObject {
+  func build(baseUrl: Swift.String, appendAPI: Swift.Bool) -> any EPINetworking.EPINetworkingClientProtocol
+}
+final public class NetworkingFactory : EPINetworking.NetworkingFactoryProtocol {
+  public init(logLevel: EPINetworking.EPINetworkingLogLevel, accessTokenProvider: any EPINetworking.AccessTokenProviding, authenticationUpdate: @escaping (EPINetworking.NetworkError) -> Swift.Void)
+  final public func build(baseUrl: Swift.String, appendAPI: Swift.Bool) -> any EPINetworking.EPINetworkingClientProtocol
+  @objc deinit
+}
+public struct AccessToken : Swift.Decodable, Swift.Equatable {
+  public let accessToken: Swift.String
+  public let expiresIn: Swift.Int
+  public let consumerId: Swift.String
+  public let tokenType: Swift.String
+  public init(accessToken: Swift.String, expiresIn: Swift.Int, consumerId: Swift.String, tokenType: Swift.String)
+  public static func == (a: EPINetworking.AccessToken, b: EPINetworking.AccessToken) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum GrantType : Swift.String, Swift.Codable, Swift.Equatable, Swift.CustomStringConvertible {
+  case otp
+  case jwtBearer
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct OAuthRequest : Swift.Codable, Swift.Equatable {
+  public var grantType: EPINetworking.GrantType
+  public let assertion: Swift.String
+  public let scope: Swift.String
+  public init(grantType: EPINetworking.GrantType, assertion: Swift.String, scope: Swift.String)
+  public static func == (a: EPINetworking.OAuthRequest, b: EPINetworking.OAuthRequest) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum OAuthScope : Swift.Equatable, Swift.Codable {
+  case provisioning
+  case payment
+  case p2p
+  case unknown(Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  public static func == (a: EPINetworking.OAuthScope, b: EPINetworking.OAuthScope) -> Swift.Bool
+}
+public struct ConsentSignablePayload : Swift.Codable, Swift.Equatable {
+  public let paymentRules: [EPINetworking.PaymentRules.PaymentRule]
+  public let walletId: Swift.String
+  public let paymentMeansId: Swift.String
+  public let beneficiary: EPINetworking.ConsentSignablePayload.Beneficiary
+  public let expiresAt: Swift.Int64
+  public let consentedAt: Swift.Int64
+  public init(paymentRules: [EPINetworking.PaymentRules.PaymentRule], walletId: Swift.String, paymentMeansId: Swift.String, beneficiary: EPINetworking.ConsentSignablePayload.Beneficiary, expiresAt: Swift.Int64, consentedAt: Swift.Int64)
+  public static func == (a: EPINetworking.ConsentSignablePayload, b: EPINetworking.ConsentSignablePayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.ConsentSignablePayload {
+  public struct Beneficiary : Swift.Codable, Swift.Equatable {
+    public let type: Swift.String
+    public let acceptorId: Swift.String
+    public init(type: Swift.String, acceptorId: Swift.String)
+    public static func == (a: EPINetworking.ConsentSignablePayload.Beneficiary, b: EPINetworking.ConsentSignablePayload.Beneficiary) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct CreateConsentRequest : Swift.Codable, Swift.Equatable, Swift.Identifiable {
+  public let id: Swift.String
+  public let consentRequestId: Swift.String
+  public let consentToken: Swift.String
+  public let referenceId: Swift.String
+  public init(id: Swift.String, consentRequestId: Swift.String, consentToken: Swift.String, referenceId: Swift.String)
+  public static func == (a: EPINetworking.CreateConsentRequest, b: EPINetworking.CreateConsentRequest) -> Swift.Bool
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct Consent : Swift.Decodable, Swift.Equatable, Swift.Identifiable {
+  public let id: Swift.String
+  public let consentRequestId: Swift.String
+  public let referenceId: Swift.String
+  public let embedded: EPINetworking.Consent.Embedded
+  public init(id: Swift.String, consentRequestId: Swift.String, referenceId: Swift.String, embedded: EPINetworking.Consent.Embedded)
+  public static func == (a: EPINetworking.Consent, b: EPINetworking.Consent) -> Swift.Bool
+  public typealias ID = Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.Consent {
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let tokens: [EPINetworking.Consent.Token]
+    public init(tokens: [EPINetworking.Consent.Token])
+    public static func == (a: EPINetworking.Consent.Embedded, b: EPINetworking.Consent.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Token : Swift.Decodable, Swift.Equatable, Swift.Identifiable {
+    public let id: Swift.String
+    public let value: Swift.String
+    public let links: EPINetworking.Consent.Links
+    public init(id: Swift.String, value: Swift.String, links: EPINetworking.Consent.Links)
+    public static func == (a: EPINetworking.Consent.Token, b: EPINetworking.Consent.Token) -> Swift.Bool
+    public typealias ID = Swift.String
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.Consent {
+  public struct Links : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let selfLink: EPINetworking.ResponseLink
+    public init(selfLink: EPINetworking.ResponseLink)
+    public static func == (a: EPINetworking.Consent.Links, b: EPINetworking.Consent.Links) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.CreateConsentRequest {
+  public static let stub: EPINetworking.CreateConsentRequest
+}
+public struct ConsentRequestApproval : Swift.Codable, Swift.Equatable {
+  public let status: Swift.String
+  public let consentId: Swift.String
+  public init(status: Swift.String, consentId: Swift.String)
+  public static func == (a: EPINetworking.ConsentRequestApproval, b: EPINetworking.ConsentRequestApproval) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ConsentRequest : Swift.Decodable, Swift.Equatable, Swift.Identifiable {
+  public let id: Swift.String
+  public let paymentPlan: EPINetworking.ConsentRequest.PaymentPlan
+  public let referenceId: Swift.String
+  public let acceptorPspId: Swift.String
+  public let acceptorId: Swift.String
+  public let acceptorName: Swift.String
+  public let embedded: EPINetworking.ConsentRequest.Embedded
+  public init(id: Swift.String, paymentPlan: EPINetworking.ConsentRequest.PaymentPlan, referenceId: Swift.String, acceptorPspId: Swift.String, acceptorId: Swift.String, acceptorName: Swift.String, embedded: EPINetworking.ConsentRequest.Embedded)
+  public static func == (a: EPINetworking.ConsentRequest, b: EPINetworking.ConsentRequest) -> Swift.Bool
+  public typealias ID = Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.ConsentRequest {
+  public struct Embedded : Swift.Codable, Swift.Equatable {
+    public let paymentRules: EPINetworking.PaymentRules?
+    public let approval: EPINetworking.ConsentRequest.Approval
+    public init(paymentRules: EPINetworking.PaymentRules?, approval: EPINetworking.ConsentRequest.Approval)
+    public static func == (a: EPINetworking.ConsentRequest.Embedded, b: EPINetworking.ConsentRequest.Embedded) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Approval : Swift.Codable, Swift.Equatable {
+    public let status: Swift.String
+    public init(status: Swift.String)
+    public static func == (a: EPINetworking.ConsentRequest.Approval, b: EPINetworking.ConsentRequest.Approval) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct PaymentPlan : Swift.Codable, Swift.Equatable {
+    public let type: Swift.String
+    public let maxAmount: EPINetworking.PaymentAmount
+    public init(type: Swift.String, maxAmount: EPINetworking.PaymentAmount)
+    public static func == (a: EPINetworking.ConsentRequest.PaymentPlan, b: EPINetworking.ConsentRequest.PaymentPlan) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.ConsentRequest {
+  public static let stub: EPINetworking.ConsentRequest
+}
+extension EPINetworking.ConsentRequestApproval {
+  public static let stub: EPINetworking.ConsentRequestApproval
+}
+public struct PaymentRules : Swift.Codable, Swift.Equatable {
+  public let paymentRules: [EPINetworking.PaymentRules.PaymentRule]
+  public static func == (a: EPINetworking.PaymentRules, b: EPINetworking.PaymentRules) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.PaymentRules {
+  public struct PaymentRule : Swift.Codable, Swift.Equatable {
+    public init(type: Swift.String, constraint: EPINetworking.PaymentRules.Constraint, startOffset: Swift.String, windowDuration: Swift.String)
+    public static func == (a: EPINetworking.PaymentRules.PaymentRule, b: EPINetworking.PaymentRules.PaymentRule) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Constraint : Swift.Codable, Swift.Equatable {
+    public init(type: Swift.String, maxAmount: Swift.Int)
+    public static func == (a: EPINetworking.PaymentRules.Constraint, b: EPINetworking.PaymentRules.Constraint) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct ConsumerPspsResponse : Swift.Codable, Swift.Equatable {
+  public let embedded: EPINetworking.ConsumerPsps
+  public init(embedded: EPINetworking.ConsumerPsps)
+  public static func == (a: EPINetworking.ConsumerPspsResponse, b: EPINetworking.ConsumerPspsResponse) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ConsumerPsps : Swift.Codable, Swift.Equatable {
+  public let consumerPsps: [EPINetworking.ConsumerPsp]
+  public init(consumerPsps: [EPINetworking.ConsumerPsp] = [])
+  public static func == (a: EPINetworking.ConsumerPsps, b: EPINetworking.ConsumerPsps) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.ConsumerPsps {
+  public static let stub: EPINetworking.ConsumerPsps
+}
+public struct ConsumerPsp : Swift.Codable, Swift.Hashable, Swift.Equatable, Swift.Identifiable {
+  public let id: Swift.String
+  public let name: Swift.String
+  public let countryCodeList: [Swift.String]
+  public let embedded: EPINetworking.ConsumerPsp.Embedded
+  public init(id: Swift.String, name: Swift.String, countryCodeList: [Swift.String], embedded: EPINetworking.ConsumerPsp.Embedded)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: EPINetworking.ConsumerPsp, b: EPINetworking.ConsumerPsp) -> Swift.Bool
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.ConsumerPsp {
+  public struct ProfileImage : Swift.Codable, Swift.Hashable, Swift.Equatable {
+    public let contentBase64: Swift.String
+    public let type: Swift.String
+    public init(contentBase64: Swift.String, type: Swift.String)
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: EPINetworking.ConsumerPsp.ProfileImage, b: EPINetworking.ConsumerPsp.ProfileImage) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Meta : Swift.Codable, Swift.Hashable, Swift.Equatable {
+    public let icon: EPINetworking.ConsumerPsp.ProfileImage
+    public let textColor: Swift.String
+    public let primaryColor: Swift.String
+    public let secondaryColor: Swift.String
+    public init(icon: EPINetworking.ConsumerPsp.ProfileImage, textColor: Swift.String, primaryColor: Swift.String, secondaryColor: Swift.String)
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: EPINetworking.ConsumerPsp.Meta, b: EPINetworking.ConsumerPsp.Meta) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Embedded : Swift.Codable, Swift.Hashable, Swift.Equatable {
+    public let meta: EPINetworking.ConsumerPsp.Meta
+    public init(meta: EPINetworking.ConsumerPsp.Meta)
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: EPINetworking.ConsumerPsp.Embedded, b: EPINetworking.ConsumerPsp.Embedded) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.ConsumerPsp {
+  public static let stub: EPINetworking.ConsumerPsp
+}
+public struct P2PConsentSignablePayload : Swift.Codable, Swift.Equatable {
+  public let paymentRules: [EPINetworking.PaymentRules.PaymentRule]
+  public let walletId: Swift.String
+  public let paymentMeansId: Swift.String
+  public let beneficiary: EPINetworking.P2PConsentSignablePayload.Beneficiary
+  public let expiresAt: Swift.String
+  public let consentedAt: Swift.String
+  public init(paymentRules: [EPINetworking.PaymentRules.PaymentRule], walletId: Swift.String, paymentMeansId: Swift.String, beneficiary: EPINetworking.P2PConsentSignablePayload.Beneficiary, expiresAt: Swift.String, consentedAt: Swift.String)
+  public struct Beneficiary : Swift.Codable, Swift.Equatable {
+    public let type: Swift.String
+    public var proxyHash: Swift.String?
+    public var displayName: Swift.String?
+    public init(type: Swift.String, proxyHash: Swift.String? = nil, displayName: Swift.String? = nil)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public static func == (a: EPINetworking.P2PConsentSignablePayload.Beneficiary, b: EPINetworking.P2PConsentSignablePayload.Beneficiary) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public static func == (a: EPINetworking.P2PConsentSignablePayload, b: EPINetworking.P2PConsentSignablePayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PPaymentApprovalRequest : Swift.Encodable, Swift.Equatable {
+  public let consentToken: Swift.String
+  public init(consentToken: Swift.String)
+  public static func == (a: EPINetworking.P2PPaymentApprovalRequest, b: EPINetworking.P2PPaymentApprovalRequest) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct ProxyCustomerDetailsResponse : Swift.Decodable, Swift.Equatable {
+  public let displayName: Swift.String
+  public let proxyValue: Swift.String?
+  public let profileImage: UIKit.UIImage?
+  public init(displayName: Swift.String, proxyValue: Swift.String?, profileImage: UIKit.UIImage?)
+  public init(from decoder: any Swift.Decoder) throws
+  public static func == (a: EPINetworking.ProxyCustomerDetailsResponse, b: EPINetworking.ProxyCustomerDetailsResponse) -> Swift.Bool
+}
+extension EPINetworking.ProxyCustomerDetailsResponse {
+  public static let stub: EPINetworking.ProxyCustomerDetailsResponse
+}
+public struct ContactProxyHash : Swift.Encodable, Swift.Equatable {
+  public let proxyHash: Swift.String
+  public init(proxyHash: Swift.String)
+  public static func == (a: EPINetworking.ContactProxyHash, b: EPINetworking.ContactProxyHash) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct ProxyIndicatorRequestPayload : Swift.Encodable, Swift.Equatable {
+  public let proxies: [EPINetworking.ContactProxyHash]
+  public init(proxies: [EPINetworking.ContactProxyHash])
+  public static func == (a: EPINetworking.ProxyIndicatorRequestPayload, b: EPINetworking.ProxyIndicatorRequestPayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct ProxyIndicatorResponsePayload : Swift.Codable, Swift.Equatable {
+  public let indicators: [EPINetworking.ContactProxyIndicator]
+  public let expiresAt: Foundation.Date
+  public init(indicators: [EPINetworking.ContactProxyIndicator], expiresAt: Foundation.Date)
+  public static func == (a: EPINetworking.ProxyIndicatorResponsePayload, b: EPINetworking.ProxyIndicatorResponsePayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ContactProxyIndicator : Swift.Equatable, Swift.Codable {
+  public let proxyHash: Swift.String
+  public let eligible: Swift.Bool
+  public init(proxyHash: Swift.String, eligible: Swift.Bool)
+  public static func == (a: EPINetworking.ContactProxyIndicator, b: EPINetworking.ContactProxyIndicator) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct CreateP2PRequestAsPayeeRequest : Swift.Encodable, Swift.Equatable {
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let payeePaymentMeansId: Swift.String
+  public let payerProxyHash: Swift.String
+  public init(amount: EPINetworking.PaymentAmount, message: Swift.String, payeePaymentMeansId: Swift.String, payerProxyHash: Swift.String)
+  public static func == (a: EPINetworking.CreateP2PRequestAsPayeeRequest, b: EPINetworking.CreateP2PRequestAsPayeeRequest) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct P2PRequestAsPayeeResponse : Swift.Decodable, Swift.Identifiable, Swift.Equatable {
+  public let id: Swift.String
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let payeePaymentMeansId: Swift.String
+  public let payerProxyHash: Swift.String
+  public let status: EPINetworking.P2PRequestAsPayeeResponse.Status
+  public let created: Swift.String
+  public let embedded: EPINetworking.P2PRequestAsPayeeResponse.Embedded
+  public struct Status : Swift.Decodable, Swift.Equatable {
+    public let value: EPINetworking.P2PRequestStatus
+    public init(value: EPINetworking.P2PRequestStatus)
+    public static func == (a: EPINetworking.P2PRequestAsPayeeResponse.Status, b: EPINetworking.P2PRequestAsPayeeResponse.Status) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let payerContact: EPINetworking.ProxyCustomerDetailsResponse
+    public init(payerContact: EPINetworking.ProxyCustomerDetailsResponse)
+    public static func == (a: EPINetworking.P2PRequestAsPayeeResponse.Embedded, b: EPINetworking.P2PRequestAsPayeeResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public init(id: Swift.String, amount: EPINetworking.PaymentAmount, message: Swift.String, payeePaymentMeansId: Swift.String, payerProxyHash: Swift.String, status: EPINetworking.P2PRequestAsPayeeResponse.Status, created: Swift.String, embedded: EPINetworking.P2PRequestAsPayeeResponse.Embedded)
+  public static func == (a: EPINetworking.P2PRequestAsPayeeResponse, b: EPINetworking.P2PRequestAsPayeeResponse) -> Swift.Bool
+  public typealias ID = Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PRequestAsPayerResponse : Swift.Decodable, Swift.Identifiable, Swift.Equatable {
+  public let id: Swift.String
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let status: EPINetworking.P2PRequestAsPayerResponse.Status
+  public let created: Swift.String
+  public let embedded: EPINetworking.P2PRequestAsPayerResponse.Embedded
+  public struct Status : Swift.Decodable, Swift.Equatable {
+    public let value: EPINetworking.P2PRequestStatus
+    public init(value: EPINetworking.P2PRequestStatus)
+    public static func == (a: EPINetworking.P2PRequestAsPayerResponse.Status, b: EPINetworking.P2PRequestAsPayerResponse.Status) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let payeeContact: EPINetworking.ProxyCustomerDetailsResponse
+    public init(payeeContact: EPINetworking.ProxyCustomerDetailsResponse)
+    public static func == (a: EPINetworking.P2PRequestAsPayerResponse.Embedded, b: EPINetworking.P2PRequestAsPayerResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public init(id: Swift.String, amount: EPINetworking.PaymentAmount, message: Swift.String, status: EPINetworking.P2PRequestAsPayerResponse.Status, created: Swift.String, embedded: EPINetworking.P2PRequestAsPayerResponse.Embedded)
+  public static func == (a: EPINetworking.P2PRequestAsPayerResponse, b: EPINetworking.P2PRequestAsPayerResponse) -> Swift.Bool
+  public typealias ID = Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct CreateP2PPaymentAsPayerRequest : Swift.Encodable, Swift.Equatable {
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let payerPaymentMeansId: Swift.String
+  public let payeeProxyHash: Swift.String
+  public init(amount: EPINetworking.PaymentAmount, message: Swift.String, payerPaymentMeansId: Swift.String, payeeProxyHash: Swift.String)
+  public static func == (a: EPINetworking.CreateP2PPaymentAsPayerRequest, b: EPINetworking.CreateP2PPaymentAsPayerRequest) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct CreateP2PPaymentAsPayerResponse : Swift.Decodable, Swift.Identifiable, Swift.Equatable {
+  public let id: Swift.String
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let payerPaymentMeansId: Swift.String?
+  public let payeeProxyHash: Swift.String?
+  public let status: Swift.String
+  public let embedded: EPINetworking.CreateP2PPaymentAsPayerResponse.Embedded
+  public init(id: Swift.String, amount: EPINetworking.PaymentAmount, message: Swift.String, payerPaymentMeansId: Swift.String?, payeeProxyHash: Swift.String?, status: Swift.String, embedded: EPINetworking.CreateP2PPaymentAsPayerResponse.Embedded)
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let paymentRules: EPINetworking.PaymentRules
+    public let payeeContact: EPINetworking.ProxyCustomerDetailsResponse?
+    public init(paymentRules: EPINetworking.PaymentRules, payeeContact: EPINetworking.ProxyCustomerDetailsResponse?)
+    public static func == (a: EPINetworking.CreateP2PPaymentAsPayerResponse.Embedded, b: EPINetworking.CreateP2PPaymentAsPayerResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public static func == (a: EPINetworking.CreateP2PPaymentAsPayerResponse, b: EPINetworking.CreateP2PPaymentAsPayerResponse) -> Swift.Bool
+  public typealias ID = Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PPaymentsFetchData {
+  public let size: Swift.Int
+  public let page: Swift.Int
+  public init(size: Swift.Int, page: Swift.Int)
+}
+public struct P2PPaymentsFetchResponse : Swift.Decodable, Swift.Equatable {
+  public let embedded: EPINetworking.P2PPaymentsFetchResponse.Embedded
+  public let page: EPINetworking.PaginationData
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let p2pPayments: [EPINetworking.P2PPayment]
+    public static func == (a: EPINetworking.P2PPaymentsFetchResponse.Embedded, b: EPINetworking.P2PPaymentsFetchResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public static func == (a: EPINetworking.P2PPaymentsFetchResponse, b: EPINetworking.P2PPaymentsFetchResponse) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PPayment : Swift.Decodable, Swift.Identifiable, Swift.Equatable {
+  public let id: Swift.String
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let payerPaymentMeansId: Swift.String?
+  public let payeeProxyHash: Swift.String?
+  public let status: Swift.String
+  public let embedded: EPINetworking.P2PPayment.Embedded
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let paymentRules: EPINetworking.PaymentRules
+    public let payeeContact: EPINetworking.ProxyCustomerDetailsResponse?
+    public let payerContact: EPINetworking.ProxyCustomerDetailsResponse?
+    public static func == (a: EPINetworking.P2PPayment.Embedded, b: EPINetworking.P2PPayment.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public static func == (a: EPINetworking.P2PPayment, b: EPINetworking.P2PPayment) -> Swift.Bool
+  public typealias ID = Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PRequestApprovalRequest : Swift.Encodable, Swift.Equatable {
+  public let message: Swift.String
+  public let payerPaymentMeansId: Swift.String
+  public init(message: Swift.String, payerPaymentMeansId: Swift.String)
+  public static func == (a: EPINetworking.P2PRequestApprovalRequest, b: EPINetworking.P2PRequestApprovalRequest) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct P2PRequestApprovalResponse : Swift.Decodable, Swift.Equatable {
+  public let id: Swift.String
+  public let amount: EPINetworking.PaymentAmount
+  public let message: Swift.String
+  public let status: EPINetworking.P2PRequestApprovalResponse.Status
+  public let created: Swift.String
+  public let embedded: EPINetworking.P2PRequestApprovalResponse.Embedded
+  public struct Status : Swift.Decodable, Swift.Equatable {
+    public let value: EPINetworking.P2PRequestStatus
+    public static func == (a: EPINetworking.P2PRequestApprovalResponse.Status, b: EPINetworking.P2PRequestApprovalResponse.Status) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let payeeContact: EPINetworking.ProxyCustomerDetailsResponse?
+    public let p2pPayment: EPINetworking.CreateP2PPaymentAsPayerResponse
+    public static func == (a: EPINetworking.P2PRequestApprovalResponse.Embedded, b: EPINetworking.P2PRequestApprovalResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public init(id: Swift.String, amount: EPINetworking.PaymentAmount, message: Swift.String, status: EPINetworking.P2PRequestApprovalResponse.Status, created: Swift.String, embedded: EPINetworking.P2PRequestApprovalResponse.Embedded)
+  public static func == (a: EPINetworking.P2PRequestApprovalResponse, b: EPINetworking.P2PRequestApprovalResponse) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PReceivedRequestsFetchResponse : Swift.Decodable, Swift.Equatable {
+  public let embedded: EPINetworking.P2PReceivedRequestsFetchResponse.Embedded
+  public let page: EPINetworking.PaginationData
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let p2pRequests: [EPINetworking.P2PRequestAsPayerResponse]
+    public init(p2pRequests: [EPINetworking.P2PRequestAsPayerResponse])
+    public static func == (a: EPINetworking.P2PReceivedRequestsFetchResponse.Embedded, b: EPINetworking.P2PReceivedRequestsFetchResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public init(embedded: EPINetworking.P2PReceivedRequestsFetchResponse.Embedded, page: EPINetworking.PaginationData)
+  public static func == (a: EPINetworking.P2PReceivedRequestsFetchResponse, b: EPINetworking.P2PReceivedRequestsFetchResponse) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct P2PRequestsFetchData {
+  public let size: Swift.Int
+  public let page: Swift.Int
+  public let sort: Swift.String
+  public let status: Swift.String
+  public init(size: Swift.Int, page: Swift.Int, sort: Swift.String = "created:desc", status: Swift.String = "Pending")
+}
+public struct P2PSentRequestsFetchResponse : Swift.Decodable, Swift.Equatable {
+  public let embedded: EPINetworking.P2PSentRequestsFetchResponse.Embedded
+  public let page: EPINetworking.PaginationData
+  public init(embedded: EPINetworking.P2PSentRequestsFetchResponse.Embedded, page: EPINetworking.PaginationData)
+  public static func == (a: EPINetworking.P2PSentRequestsFetchResponse, b: EPINetworking.P2PSentRequestsFetchResponse) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.P2PSentRequestsFetchResponse {
+  public struct Embedded : Swift.Decodable, Swift.Equatable {
+    public let p2pRequests: [EPINetworking.P2PRequestAsPayeeResponse]
+    public init(p2pRequests: [EPINetworking.P2PRequestAsPayeeResponse])
+    public static func == (a: EPINetworking.P2PSentRequestsFetchResponse.Embedded, b: EPINetworking.P2PSentRequestsFetchResponse.Embedded) -> Swift.Bool
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct PaginationData : Swift.Decodable, Swift.Equatable {
+  public let size: Swift.Int
+  public let totalElements: Swift.Int
+  public let totalPages: Swift.Int
+  public let number: Swift.Int
+  public let requestedPageSize: Swift.Int
+  public init(size: Swift.Int, totalElements: Swift.Int, totalPages: Swift.Int, number: Swift.Int, requestedPageSize: Swift.Int)
+  public static func == (a: EPINetworking.PaginationData, b: EPINetworking.PaginationData) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum P2PRequestStatus : Swift.RawRepresentable, Swift.Decodable, Swift.Equatable {
+  case pending
+  case approved
+  case rejected
+  case expired
+  case canceled
+  case unknown(Swift.String)
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+  public typealias RawValue = Swift.String
+}
+public struct PaymentMeans : Swift.Codable, Swift.Equatable {
+  public let paymentMeans: [EPINetworking.PaymentMean]
+  public init(paymentMeans: [EPINetworking.PaymentMean])
+  public static func == (a: EPINetworking.PaymentMeans, b: EPINetworking.PaymentMeans) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct PaymentMean : Swift.Codable, Swift.Identifiable, Swift.Equatable, Swift.Hashable {
+  public let id: Swift.String
+  public let paymentSourceId: Swift.String
+  public let externalId: Swift.String
+  public let consumerPspId: Swift.String
+  public let paymentSourceType: Swift.String
+  public let paymentSourceDisplayName: Swift.String
+  public let paymentSourceDisplayDigits: Swift.String
+  public let publicKey: EPINetworking.PublicKey
+  public let embedded: EPINetworking.PaymentMean.Embedded?
+  public init(id: Swift.String, paymentSourceId: Swift.String, externalId: Swift.String, consumerPspId: Swift.String, paymentSourceType: Swift.String, paymentSourceDisplayName: Swift.String, paymentSourceDisplayDigits: Swift.String, publicKey: EPINetworking.PublicKey, embedded: EPINetworking.PaymentMean.Embedded? = nil)
+  public static func == (a: EPINetworking.PaymentMean, b: EPINetworking.PaymentMean) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.PaymentMean {
+  public struct Embedded : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let consumerPsp: EPINetworking.ConsumerPsp?
+    public let paymentSourceProfile: EPINetworking.PaymentSourceProfile?
+    public init(consumerPsp: EPINetworking.ConsumerPsp?, paymentSourceProfile: EPINetworking.PaymentSourceProfile?)
+    public static func == (a: EPINetworking.PaymentMean.Embedded, b: EPINetworking.PaymentMean.Embedded) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.PaymentMean {
+  public static let stub: EPINetworking.PaymentMean
+}
+public struct PaymentSourceProfile : Swift.Equatable, Swift.Codable, Swift.Hashable {
+  public let id: Swift.String?
+  public let displayName: Swift.String
+  public let paymentSourceProxies: [EPINetworking.PaymentSourceProxy]?
+  public init(id: Swift.String, displayName: Swift.String, paymentSourceProxies: [EPINetworking.PaymentSourceProxy])
+  public static func == (a: EPINetworking.PaymentSourceProfile, b: EPINetworking.PaymentSourceProfile) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct PaymentSourceProxy : Swift.Equatable, Swift.Codable, Swift.Hashable {
+  public let id: Swift.String
+  public let type: EPINetworking.PaymentSourceProxyType
+  public let value: Swift.String
+  public let links: EPINetworking.PaymentSourceProxy.PaymentSourceProxyLinks?
+  public init(id: Swift.String, type: EPINetworking.PaymentSourceProxyType = .phoneNumber, value: Swift.String, links: EPINetworking.PaymentSourceProxy.PaymentSourceProxyLinks? = nil)
+  public static func == (a: EPINetworking.PaymentSourceProxy, b: EPINetworking.PaymentSourceProxy) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.PaymentSourceProxy {
+  public struct PaymentSourceProxyLinks : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let linksSelf: EPINetworking.ResponseLink
+    public init(linksSelf: EPINetworking.ResponseLink)
+    public static func == (a: EPINetworking.PaymentSourceProxy.PaymentSourceProxyLinks, b: EPINetworking.PaymentSourceProxy.PaymentSourceProxyLinks) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.PaymentSourceProxy {
+  public static let stub: EPINetworking.PaymentSourceProxy
+}
+public struct PaymentAmount : Swift.Codable, Swift.Equatable {
+  public let euroCents: Swift.Int
+  public init(euroCents: Swift.Int)
+  public static func == (a: EPINetworking.PaymentAmount, b: EPINetworking.PaymentAmount) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AddContactItemPayload : Swift.Equatable, Swift.Codable, Swift.Hashable {
+  public let type: EPINetworking.PaymentSourceProxyType
+  public let value: Swift.String
+  public init(type: EPINetworking.PaymentSourceProxyType = .phoneNumber, value: Swift.String)
+  public static func == (a: EPINetworking.AddContactItemPayload, b: EPINetworking.AddContactItemPayload) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.AddContactItemPayload {
+  public static let stub: EPINetworking.AddContactItemPayload
+}
+public struct AddContactItemResponse : Swift.Equatable, Swift.Codable, Swift.Hashable {
+  public struct PaymentSourceProxyLinks : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let linksSelf: EPINetworking.ResponseLink
+    public let resendOtp: EPINetworking.ResponseLink?
+    public let respondToChallenge: EPINetworking.ResponseLink?
+    public let paymentSourceProfile: EPINetworking.ResponseLink?
+    public init(linksSelf: EPINetworking.ResponseLink, resendOtp: EPINetworking.ResponseLink?, respondToChallenge: EPINetworking.ResponseLink?, paymentSourceProfile: EPINetworking.ResponseLink?)
+    public static func == (a: EPINetworking.AddContactItemResponse.PaymentSourceProxyLinks, b: EPINetworking.AddContactItemResponse.PaymentSourceProxyLinks) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public let contactItemId: Swift.String
+  public let type: EPINetworking.PaymentSourceProxyType
+  public let value: Swift.String
+  public let createdAt: Foundation.Date
+  public let verified: Swift.Bool
+  public let links: EPINetworking.AddContactItemResponse.PaymentSourceProxyLinks?
+  public let verifiedAt: Foundation.Date?
+  public let nextChallengeNotBefore: Foundation.Date?
+  public let linkedPaymentSourceID: Swift.String?
+  public init(contactItemId: Swift.String, type: EPINetworking.PaymentSourceProxyType, value: Swift.String, createdAt: Foundation.Date, verified: Swift.Bool, verifiedAt: Foundation.Date? = nil, nextChallengeNotBefore: Foundation.Date? = nil, links: EPINetworking.AddContactItemResponse.PaymentSourceProxyLinks? = nil, linkedPaymentSourceID: Swift.String? = nil)
+  public static func == (a: EPINetworking.AddContactItemResponse, b: EPINetworking.AddContactItemResponse) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ContactItemVerification : Swift.Equatable {
+  public let verification: Foundation.URL
+  public let resendOTP: Foundation.URL
+  public let resendEarliestDate: Foundation.Date
+  public static func == (a: EPINetworking.ContactItemVerification, b: EPINetworking.ContactItemVerification) -> Swift.Bool
+}
+extension EPINetworking.AddContactItemResponse {
+  public enum ContactItemState {
+    case verified
+    case unverified(verification: EPINetworking.ContactItemVerification)
+    case assignedToPaymentSource(linkedPaymentSourceID: Swift.String)
+    case invalidState
+  }
+  public var state: EPINetworking.AddContactItemResponse.ContactItemState {
+    get
+  }
+}
+extension EPINetworking.ContactItemVerification {
+  public static let stub: EPINetworking.ContactItemVerification
+}
+extension EPINetworking.AddContactItemResponse {
+  public static let stub: EPINetworking.AddContactItemResponse
+}
+extension EPINetworking.AddContactItemResponse.PaymentSourceProxyLinks {
+  public static let stub: EPINetworking.AddContactItemResponse.PaymentSourceProxyLinks
+}
+public struct AddProxyPayload : Swift.Codable, Swift.Equatable {
+  public let contactItemId: Swift.String
+  public init(contactItemId: Swift.String)
+  public static func == (a: EPINetworking.AddProxyPayload, b: EPINetworking.AddProxyPayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AddProxyResponse : Swift.Codable, Swift.Equatable {
+  public let type: Swift.String
+  public let id: Swift.String
+  public let value: Swift.String
+  public let links: EPINetworking.AddProxyResponse.AddProxyResponseLinks
+  public init(type: Swift.String, id: Swift.String, value: Swift.String, links: EPINetworking.AddProxyResponse.AddProxyResponseLinks)
+  public static func == (a: EPINetworking.AddProxyResponse, b: EPINetworking.AddProxyResponse) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.AddProxyResponse {
+  public struct AddProxyResponseLinks : Swift.Codable, Swift.Equatable {
+    public let linksSelf: EPINetworking.ResponseLink
+    public init(linksSelf: EPINetworking.ResponseLink)
+    public static func == (a: EPINetworking.AddProxyResponse.AddProxyResponseLinks, b: EPINetworking.AddProxyResponse.AddProxyResponseLinks) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct EditPaymentSourcePayload : Swift.Codable, Swift.Equatable, Swift.Hashable {
+  public let displayName: Swift.String
+  public init(displayName: Swift.String)
+  public static func == (a: EPINetworking.EditPaymentSourcePayload, b: EPINetworking.EditPaymentSourcePayload) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct EditPaymentSourceResponse : Swift.Codable, Swift.Equatable, Swift.Hashable {
+  public let paymentSourceID: Swift.String
+  public let displayName: Swift.String
+  public let links: EPINetworking.EditPaymentSourceResponse.EditPaymentSourceResponseLinks
+  public let embedded: EPINetworking.EditPaymentSourceResponse.Embedded?
+  public init(paymentSourceID: Swift.String, displayName: Swift.String, links: EPINetworking.EditPaymentSourceResponse.EditPaymentSourceResponseLinks, embedded: EPINetworking.EditPaymentSourceResponse.Embedded?)
+  public static func == (a: EPINetworking.EditPaymentSourceResponse, b: EPINetworking.EditPaymentSourceResponse) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.EditPaymentSourceResponse {
+  public struct Embedded : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let paymentSourceProxies: [EPINetworking.PaymentSourceProxy]
+    public init(paymentSourceProxies: [EPINetworking.PaymentSourceProxy])
+    public static func == (a: EPINetworking.EditPaymentSourceResponse.Embedded, b: EPINetworking.EditPaymentSourceResponse.Embedded) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public struct EditPaymentSourceResponseLinks : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let linksSelf: EPINetworking.ResponseLink
+    public let proxies: EPINetworking.ResponseLink
+    public init(linksSelf: EPINetworking.ResponseLink, proxies: EPINetworking.ResponseLink)
+    public static func == (a: EPINetworking.EditPaymentSourceResponse.EditPaymentSourceResponseLinks, b: EPINetworking.EditPaymentSourceResponse.EditPaymentSourceResponseLinks) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct ProxyOTPPayload : Swift.Equatable, Swift.Codable {
+  public let otp: Swift.String
+  public init(otp: Swift.String)
+  public static func == (a: EPINetworking.ProxyOTPPayload, b: EPINetworking.ProxyOTPPayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct RequestOTPResponse : Swift.Codable, Swift.Equatable {
+  public let type: Swift.String
+  public let value: Swift.String
+  public let contactItemId: Swift.String
+  public let createdAt: Foundation.Date
+  public let verified: Swift.Bool
+  public let nextChallengeNotBefore: Foundation.Date
+  public let links: EPINetworking.RequestOTPResponse.Links
+  public init(type: Swift.String, value: Swift.String, contactItemId: Swift.String, createdAt: Foundation.Date, verified: Swift.Bool, nextChallengeNotBefore: Foundation.Date, links: EPINetworking.RequestOTPResponse.Links)
+  public static func == (a: EPINetworking.RequestOTPResponse, b: EPINetworking.RequestOTPResponse) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.RequestOTPResponse {
+  public struct Links : Swift.Codable, Swift.Equatable {
+    public let linksSelf: EPINetworking.ResponseLink
+    public let resendOtp: EPINetworking.ResponseLink
+    public let respondToChallenge: EPINetworking.ResponseLink
+    public init(linksSelf: EPINetworking.ResponseLink, resendOtp: EPINetworking.ResponseLink, respondToChallenge: EPINetworking.ResponseLink)
+    public static func == (a: EPINetworking.RequestOTPResponse.Links, b: EPINetworking.RequestOTPResponse.Links) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.RequestOTPResponse {
+  public var toContactItemVerification: EPINetworking.ContactItemVerification {
+    get
+  }
+}
+extension EPINetworking.RequestOTPResponse.Links {
+  public static let stub: EPINetworking.RequestOTPResponse.Links
+}
+extension EPINetworking.RequestOTPResponse {
+  public static let stub: EPINetworking.RequestOTPResponse
+}
+public enum PaymentSourceProxyType : Swift.String, Swift.Equatable, Swift.Codable, Swift.CustomStringConvertible {
+  case phoneNumber
+  case epiTag
+  case email
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public typealias RemoveProxyResponse = Swift.Void
+public struct PaymentSourceUpdatePayload : Swift.Equatable, Swift.Codable {
+  public let paymentSourceId: Swift.String
+  public let displayName: Swift.String
+  public init(paymentSourceId: Swift.String, displayName: Swift.String)
+  public static func == (a: EPINetworking.PaymentSourceUpdatePayload, b: EPINetworking.PaymentSourceUpdatePayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct PaymentSourceUpdateResponse : Swift.Codable, Swift.Equatable {
+  public let paymentSourceID: Swift.String
+  public let displayName: Swift.String
+  public let links: EPINetworking.PaymentSourceUpdateResponse.PaymentSourceUpdateLinks
+  public let embedded: EPINetworking.PaymentSourceUpdateResponse.Embedded?
+  public init(paymentSourceID: Swift.String, displayName: Swift.String, links: EPINetworking.PaymentSourceUpdateResponse.PaymentSourceUpdateLinks, embedded: EPINetworking.PaymentSourceUpdateResponse.Embedded?)
+  public static func == (a: EPINetworking.PaymentSourceUpdateResponse, b: EPINetworking.PaymentSourceUpdateResponse) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.PaymentSourceUpdateResponse {
+  public struct Embedded : Swift.Codable, Swift.Equatable {
+    public let paymentSourceProxies: [EPINetworking.PaymentSourceProxy]
+    public init(paymentSourceProxies: [EPINetworking.PaymentSourceProxy])
+    public static func == (a: EPINetworking.PaymentSourceUpdateResponse.Embedded, b: EPINetworking.PaymentSourceUpdateResponse.Embedded) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.PaymentSourceUpdateResponse {
+  public struct PaymentSourceUpdateLinks : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public let selfLink: EPINetworking.ResponseLink
+    public init(selfLink: EPINetworking.ResponseLink)
+    public static func == (a: EPINetworking.PaymentSourceUpdateResponse.PaymentSourceUpdateLinks, b: EPINetworking.PaymentSourceUpdateResponse.PaymentSourceUpdateLinks) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct PaymentSource : Swift.Decodable, Swift.Identifiable, Swift.Equatable, Swift.Hashable {
+  public let id: Swift.String
+  public let type: Swift.String
+  public let externalId: Swift.String
+  public let consumerPspId: Swift.String
+  public let iban: Swift.String
+  public init(id: Swift.String, type: Swift.String, externalId: Swift.String, consumerPspId: Swift.String, iban: Swift.String)
+  public static func == (a: EPINetworking.PaymentSource, b: EPINetworking.PaymentSource) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias ID = Swift.String
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.PaymentSource {
+  public static let stub: EPINetworking.PaymentSource
+}
+public struct Provisioning : Swift.Decodable, Swift.Identifiable, Swift.Equatable, Swift.Hashable {
+  public let id: Swift.String
+  public let consumerPspId: Swift.String
+  public let paymentSources: [EPINetworking.PaymentSource]
+  public let links: EPINetworking.Provisioning.Links?
+  public let embedded: EPINetworking.Provisioning.Embedded?
+  public init(id: Swift.String, consumerPspId: Swift.String, paymentSources: [EPINetworking.PaymentSource], links: EPINetworking.Provisioning.Links? = nil, embedded: EPINetworking.Provisioning.Embedded? = nil)
+  public static func == (a: EPINetworking.Provisioning, b: EPINetworking.Provisioning) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias ID = Swift.String
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.Provisioning {
+  public struct Links : Swift.Decodable, Swift.Equatable, Swift.Hashable {
+    public let redirect: EPINetworking.ResponseLink
+    public let provisionPaymentSources: EPINetworking.ResponseLink?
+    public let paymentMeans: EPINetworking.ResponseLink?
+    public static func == (a: EPINetworking.Provisioning.Links, b: EPINetworking.Provisioning.Links) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.Provisioning {
+  public struct Embedded : Swift.Decodable, Swift.Equatable, Swift.Hashable {
+    public let consumerPsp: EPINetworking.ConsumerPsp
+    public static func == (a: EPINetworking.Provisioning.Embedded, b: EPINetworking.Provisioning.Embedded) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public struct AllProvisioningsResponse : Swift.Decodable, Swift.Equatable, Swift.Hashable {
+  public let embedded: EPINetworking.AllProvisioningsResponse.Provisionings
+  public init(embedded: EPINetworking.AllProvisioningsResponse.Provisionings)
+  public static func == (a: EPINetworking.AllProvisioningsResponse, b: EPINetworking.AllProvisioningsResponse) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.AllProvisioningsResponse {
+  public struct Provisionings : Swift.Decodable, Swift.Equatable, Swift.Hashable {
+    public let provisionings: [EPINetworking.Provisioning]
+    public static func == (a: EPINetworking.AllProvisioningsResponse.Provisionings, b: EPINetworking.AllProvisioningsResponse.Provisionings) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+extension EPINetworking.Provisioning {
+  public static let stub: EPINetworking.Provisioning
+}
+public struct PublicKey : Swift.Codable, Swift.Equatable, Swift.Hashable {
+  public let kty: Swift.String
+  public let use: Swift.String
+  public let alg: Swift.String
+  public let kid: Swift.String
+  public let crv: Swift.String
+  public let x: Swift.String
+  public let y: Swift.String
+  public init(kty: Swift.String, use: Swift.String, alg: Swift.String, kid: Swift.String, crv: Swift.String, x: Swift.String, y: Swift.String)
+  public static func == (a: EPINetworking.PublicKey, b: EPINetworking.PublicKey) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.PublicKey {
+  public static let stub: EPINetworking.PublicKey
+}
+public struct ResponseLink : Swift.Codable, Swift.Equatable, Swift.Hashable {
+  public let href: Foundation.URL
+  public static func == (a: EPINetworking.ResponseLink, b: EPINetworking.ResponseLink) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.ResponseLink {
+  public static let stub: EPINetworking.ResponseLink
+}
+extension Foundation.URL {
+  public static let stub: Foundation.URL!
+}
+public struct CreateWalletProvisioningPayload : Swift.Codable, Swift.Equatable {
+  public let consumerPspId: Swift.String
+  public init(consumerPspId: Swift.String)
+  public static func == (a: EPINetworking.CreateWalletProvisioningPayload, b: EPINetworking.CreateWalletProvisioningPayload) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct Wallet : Swift.Codable, Swift.Identifiable, Swift.Equatable {
+  public let id: Swift.String
+  public let walletName: Swift.String
+  public let consumerId: Swift.String
+  public let deviceId: Swift.String
+  public let walletPublicKey: EPINetworking.PublicKey
+  public let links: EPINetworking.Wallet.WalletLinks?
+  public let embedded: EPINetworking.PaymentMeans?
+  public init(id: Swift.String, walletName: Swift.String, consumerId: Swift.String, deviceId: Swift.String, walletPublicKey: EPINetworking.PublicKey, links: EPINetworking.Wallet.WalletLinks? = nil, embedded: EPINetworking.PaymentMeans? = nil)
+  public static func == (a: EPINetworking.Wallet, b: EPINetworking.Wallet) -> Swift.Bool
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension EPINetworking.Wallet {
+  public func accountName(_ paymentSourceId: Swift.String) -> Swift.String?
+  public struct WalletLinks : Swift.Codable, Swift.Equatable, Swift.Hashable {
+    public static func == (a: EPINetworking.Wallet.WalletLinks, b: EPINetworking.Wallet.WalletLinks) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+}
+public typealias LoadableSubject<Value> = SwiftUI.Binding<EPINetworking.Loadable<Value>>
+public enum Loadable<Value> {
+  case notRequested
+  case isLoading(last: Value?, cancelBag: EPINetworking.CancelBag)
+  case loaded(Value)
+  case failed(EPINetworking.NetworkError)
+  public var value: Value? {
+    get
+  }
+  public var error: EPINetworking.NetworkError? {
+    get
+  }
+  public var isLoading: Swift.Bool {
+    get
+  }
+}
+extension EPINetworking.Loadable {
+  public mutating func setIsLoading(cancelBag: EPINetworking.CancelBag)
+  public mutating func cancelLoading()
+  public func map<MappedValue>(_ transform: (Value) throws -> MappedValue) -> EPINetworking.Loadable<MappedValue>
+}
+extension EPINetworking.Loadable : Swift.Equatable where Value : Swift.Equatable {
+  public static func == (lhs: EPINetworking.Loadable<Value>, rhs: EPINetworking.Loadable<Value>) -> Swift.Bool
+}
+public protocol AuthenticationRepositoryProtocol {
+  func refreshAccessToken(request: EPINetworking.OAuthRequest) -> Combine.AnyPublisher<EPINetworking.AccessToken, EPINetworking.NetworkError>
+}
+public struct AuthenticationRepository : EPINetworking.AuthenticationRepositoryProtocol {
+  public init(networkingClient: any EPINetworking.EPINetworkingClientProtocol)
+  public func refreshAccessToken(request: EPINetworking.OAuthRequest) -> Combine.AnyPublisher<EPINetworking.AccessToken, EPINetworking.NetworkError>
+}
+public protocol P2PRepositoryProtocol {
+  func fetchP2PRequestAsPayee(_ id: Swift.String) -> Combine.AnyPublisher<EPINetworking.P2PRequestAsPayeeResponse, EPINetworking.NetworkError>
+  func fetchP2PRequestAsPayer(_ id: Swift.String) -> Combine.AnyPublisher<EPINetworking.P2PRequestAsPayerResponse, EPINetworking.NetworkError>
+  func fetchReceivedP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData) -> Combine.AnyPublisher<EPINetworking.P2PReceivedRequestsFetchResponse, EPINetworking.NetworkError>
+  func fetchSentP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData) -> Combine.AnyPublisher<EPINetworking.P2PSentRequestsFetchResponse, EPINetworking.NetworkError>
+  func createP2PRequest(_ request: EPINetworking.CreateP2PRequestAsPayeeRequest) -> Combine.AnyPublisher<EPINetworking.P2PRequestAsPayeeResponse, EPINetworking.NetworkError>
+  func cancelP2PRequest(_ id: Swift.String) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  func approveP2PRequest(_ id: Swift.String, _ request: EPINetworking.P2PRequestApprovalRequest) -> Combine.AnyPublisher<EPINetworking.P2PRequestApprovalResponse, EPINetworking.NetworkError>
+  func rejectP2PRequest(_ id: Swift.String) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  func createP2PPayment(_ request: EPINetworking.CreateP2PPaymentAsPayerRequest) -> Combine.AnyPublisher<EPINetworking.CreateP2PPaymentAsPayerResponse, EPINetworking.NetworkError>
+  func approveP2PPayment(_ id: Swift.String, _ request: EPINetworking.P2PPaymentApprovalRequest) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  func fetchP2PPayments(fetchData: EPINetworking.P2PPaymentsFetchData) -> Combine.AnyPublisher<EPINetworking.P2PPaymentsFetchResponse, EPINetworking.NetworkError>
+}
+public struct P2PRepository : EPINetworking.P2PRepositoryProtocol {
+  public init(networkingClient: any EPINetworking.EPINetworkingClientProtocol)
+  public func createP2PRequest(_ request: EPINetworking.CreateP2PRequestAsPayeeRequest) -> Combine.AnyPublisher<EPINetworking.P2PRequestAsPayeeResponse, EPINetworking.NetworkError>
+  public func cancelP2PRequest(_ id: Swift.String) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  public func approveP2PRequest(_ id: Swift.String, _ request: EPINetworking.P2PRequestApprovalRequest) -> Combine.AnyPublisher<EPINetworking.P2PRequestApprovalResponse, EPINetworking.NetworkError>
+  public func rejectP2PRequest(_ id: Swift.String) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  public func fetchP2PRequestAsPayee(_ id: Swift.String) -> Combine.AnyPublisher<EPINetworking.P2PRequestAsPayeeResponse, EPINetworking.NetworkError>
+  public func fetchP2PRequestAsPayer(_ id: Swift.String) -> Combine.AnyPublisher<EPINetworking.P2PRequestAsPayerResponse, EPINetworking.NetworkError>
+  public func fetchReceivedP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData) -> Combine.AnyPublisher<EPINetworking.P2PReceivedRequestsFetchResponse, EPINetworking.NetworkError>
+  public func fetchSentP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData) -> Combine.AnyPublisher<EPINetworking.P2PSentRequestsFetchResponse, EPINetworking.NetworkError>
+  public func createP2PPayment(_ request: EPINetworking.CreateP2PPaymentAsPayerRequest) -> Combine.AnyPublisher<EPINetworking.CreateP2PPaymentAsPayerResponse, EPINetworking.NetworkError>
+  public func approveP2PPayment(_ id: Swift.String, _ request: EPINetworking.P2PPaymentApprovalRequest) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  public func fetchP2PPayments(fetchData: EPINetworking.P2PPaymentsFetchData) -> Combine.AnyPublisher<EPINetworking.P2PPaymentsFetchResponse, EPINetworking.NetworkError>
+}
+public protocol PaymentSourceRepositoryProtocol {
+  func updatePaymentSource(consumerId: Swift.String, payload: EPINetworking.PaymentSourceUpdatePayload) -> Combine.AnyPublisher<EPINetworking.PaymentSourceUpdateResponse, EPINetworking.NetworkError>
+  func addContactItem(consumerId: Swift.String, payload: EPINetworking.AddContactItemPayload) -> Combine.AnyPublisher<EPINetworking.AddContactItemResponse, EPINetworking.NetworkError>
+  func addProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.AddProxyPayload) -> Combine.AnyPublisher<EPINetworking.AddProxyResponse, EPINetworking.NetworkError>
+  func removeProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, proxyId: Swift.String) -> Combine.AnyPublisher<EPINetworking.RemoveProxyResponse, EPINetworking.NetworkError>
+  func validate(otp: EPINetworking.ProxyOTPPayload, at url: Foundation.URL) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  func requestNewOtp(at url: Foundation.URL) -> Combine.AnyPublisher<EPINetworking.RequestOTPResponse, EPINetworking.NetworkError>
+  func editDisplayName(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.EditPaymentSourcePayload) -> Combine.AnyPublisher<EPINetworking.EditPaymentSourceResponse, EPINetworking.NetworkError>
+}
+final public class PaymentSourceRepository : EPINetworking.PaymentSourceRepositoryProtocol {
+  public init(networkingClient: any EPINetworking.EPINetworkingClientProtocol, networkingClientFactory: any EPINetworking.NetworkingFactoryProtocol)
+  final public func updatePaymentSource(consumerId: Swift.String, payload: EPINetworking.PaymentSourceUpdatePayload) -> Combine.AnyPublisher<EPINetworking.PaymentSourceUpdateResponse, EPINetworking.NetworkError>
+  final public func addContactItem(consumerId: Swift.String, payload: EPINetworking.AddContactItemPayload) -> Combine.AnyPublisher<EPINetworking.AddContactItemResponse, EPINetworking.NetworkError>
+  final public func addProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.AddProxyPayload) -> Combine.AnyPublisher<EPINetworking.AddProxyResponse, EPINetworking.NetworkError>
+  final public func removeProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, proxyId: Swift.String) -> Combine.AnyPublisher<EPINetworking.RemoveProxyResponse, EPINetworking.NetworkError>
+  final public func validate(otp: EPINetworking.ProxyOTPPayload, at url: Foundation.URL) -> Combine.AnyPublisher<Swift.Void, EPINetworking.NetworkError>
+  final public func requestNewOtp(at url: Foundation.URL) -> Combine.AnyPublisher<EPINetworking.RequestOTPResponse, EPINetworking.NetworkError>
+  final public func editDisplayName(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.EditPaymentSourcePayload) -> Combine.AnyPublisher<EPINetworking.EditPaymentSourceResponse, EPINetworking.NetworkError>
+  @objc deinit
+}
+public protocol ProxyRepositoryProtocol {
+  func updateProxyIndicators(_ payload: EPINetworking.ProxyIndicatorRequestPayload) -> Combine.AnyPublisher<EPINetworking.ProxyIndicatorResponsePayload, EPINetworking.NetworkError>
+  func fetchProxyInfo(_ proxyHash: Swift.String) -> Combine.AnyPublisher<EPINetworking.ProxyCustomerDetailsResponse, EPINetworking.NetworkError>
+}
+public struct ProxyRepository : EPINetworking.ProxyRepositoryProtocol {
+  public init(networkingClient: any EPINetworking.EPINetworkingClientProtocol)
+  public func updateProxyIndicators(_ payload: EPINetworking.ProxyIndicatorRequestPayload) -> Combine.AnyPublisher<EPINetworking.ProxyIndicatorResponsePayload, EPINetworking.NetworkError>
+  public func fetchProxyInfo(_ proxyHash: Swift.String) -> Combine.AnyPublisher<EPINetworking.ProxyCustomerDetailsResponse, EPINetworking.NetworkError>
+}
+public protocol WalletProvisioningRepositoryProtocol {
+  func createWalletProvisioning(walletId: Swift.String, payload: EPINetworking.CreateWalletProvisioningPayload) -> Combine.AnyPublisher<EPINetworking.Provisioning, EPINetworking.NetworkError>
+  func fetchWalletProvisioning(walletId: Swift.String, provisioningId: Swift.String) -> Combine.AnyPublisher<EPINetworking.Provisioning, EPINetworking.NetworkError>
+  func fetchWalletProvisionings(walletId: Swift.String) -> Combine.AnyPublisher<EPINetworking.AllProvisioningsResponse, EPINetworking.NetworkError>
+}
+public struct WalletProvisioningRepository : EPINetworking.WalletProvisioningRepositoryProtocol {
+  public init(networkingClient: any EPINetworking.EPINetworkingClientProtocol)
+  public func createWalletProvisioning(walletId: Swift.String, payload: EPINetworking.CreateWalletProvisioningPayload) -> Combine.AnyPublisher<EPINetworking.Provisioning, EPINetworking.NetworkError>
+  public func fetchWalletProvisioning(walletId: Swift.String, provisioningId: Swift.String) -> Combine.AnyPublisher<EPINetworking.Provisioning, EPINetworking.NetworkError>
+  public func fetchWalletProvisionings(walletId: Swift.String) -> Combine.AnyPublisher<EPINetworking.AllProvisioningsResponse, EPINetworking.NetworkError>
+}
+public protocol WalletRepositoryProtocol {
+  func fetchWallet(walletId: Swift.String) -> Combine.AnyPublisher<EPINetworking.Wallet, EPINetworking.NetworkError>
+}
+public struct WalletRepository : EPINetworking.WalletRepositoryProtocol {
+  public init(networkingClient: any EPINetworking.EPINetworkingClientProtocol)
+  public func fetchWallet(walletId: Swift.String) -> Combine.AnyPublisher<EPINetworking.Wallet, EPINetworking.NetworkError>
+}
+public protocol AuthenticationServicing {
+  func refreshAccessToken(request: EPINetworking.OAuthRequest, response: EPINetworking.LoadableSubject<EPINetworking.AccessToken>)
+}
+public struct AuthenticationService : EPINetworking.AuthenticationServicing {
+  public init(repository: any EPINetworking.AuthenticationRepositoryProtocol)
+  @_Concurrency.MainActor public func refreshAccessToken(request: EPINetworking.OAuthRequest, response: EPINetworking.LoadableSubject<EPINetworking.AccessToken>)
+}
+public protocol P2PServicing {
+  func fetchP2PRequestAsPayer(_ id: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestAsPayerResponse>)
+  func fetchP2PRequestAsPayee(_ id: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestAsPayeeResponse>)
+  func fetchReceivedP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData, response: EPINetworking.LoadableSubject<EPINetworking.P2PReceivedRequestsFetchResponse>)
+  func fetchSentP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData, response: EPINetworking.LoadableSubject<EPINetworking.P2PSentRequestsFetchResponse>)
+  func createP2PRequest(_ request: EPINetworking.CreateP2PRequestAsPayeeRequest, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestAsPayeeResponse>)
+  func cancelP2PRequest(_ id: Swift.String, response: EPINetworking.LoadableSubject<Swift.Void>)
+  func approveP2PRequest(_ id: Swift.String, _ request: EPINetworking.P2PRequestApprovalRequest, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestApprovalResponse>)
+  func rejectP2PRequest(_ id: Swift.String, response: EPINetworking.LoadableSubject<Swift.Void>)
+  func createP2PPayment(_ request: EPINetworking.CreateP2PPaymentAsPayerRequest, response: EPINetworking.LoadableSubject<EPINetworking.CreateP2PPaymentAsPayerResponse>)
+  func approveP2PPayment(_ id: Swift.String, _ request: EPINetworking.P2PPaymentApprovalRequest, response: EPINetworking.LoadableSubject<Swift.Void>)
+  func fetchP2PPayments(_ fetchData: EPINetworking.P2PPaymentsFetchData, response: EPINetworking.LoadableSubject<EPINetworking.P2PPaymentsFetchResponse>)
+}
+public struct P2PService : EPINetworking.P2PServicing {
+  public init(repository: any EPINetworking.P2PRepositoryProtocol)
+  @_Concurrency.MainActor public func fetchP2PRequestAsPayer(_ id: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestAsPayerResponse>)
+  @_Concurrency.MainActor public func fetchP2PRequestAsPayee(_ id: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestAsPayeeResponse>)
+  @_Concurrency.MainActor public func fetchReceivedP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData, response: EPINetworking.LoadableSubject<EPINetworking.P2PReceivedRequestsFetchResponse>)
+  public func fetchSentP2PRequests(fetchData: EPINetworking.P2PRequestsFetchData, response: EPINetworking.LoadableSubject<EPINetworking.P2PSentRequestsFetchResponse>)
+  @_Concurrency.MainActor public func createP2PRequest(_ request: EPINetworking.CreateP2PRequestAsPayeeRequest, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestAsPayeeResponse>)
+  @_Concurrency.MainActor public func cancelP2PRequest(_ id: Swift.String, response: EPINetworking.LoadableSubject<Swift.Void>)
+  @_Concurrency.MainActor public func approveP2PRequest(_ id: Swift.String, _ request: EPINetworking.P2PRequestApprovalRequest, response: EPINetworking.LoadableSubject<EPINetworking.P2PRequestApprovalResponse>)
+  @_Concurrency.MainActor public func rejectP2PRequest(_ id: Swift.String, response: EPINetworking.LoadableSubject<Swift.Void>)
+  @_Concurrency.MainActor public func createP2PPayment(_ request: EPINetworking.CreateP2PPaymentAsPayerRequest, response: EPINetworking.LoadableSubject<EPINetworking.CreateP2PPaymentAsPayerResponse>)
+  @_Concurrency.MainActor public func approveP2PPayment(_ id: Swift.String, _ request: EPINetworking.P2PPaymentApprovalRequest, response: EPINetworking.LoadableSubject<Swift.Void>)
+  @_Concurrency.MainActor public func fetchP2PPayments(_ fetchData: EPINetworking.P2PPaymentsFetchData, response: EPINetworking.LoadableSubject<EPINetworking.P2PPaymentsFetchResponse>)
+}
+public protocol PaymentSourceServicing {
+  func updatePaymentSource(consumerId: Swift.String, payload: EPINetworking.PaymentSourceUpdatePayload, response: EPINetworking.LoadableSubject<EPINetworking.PaymentSourceUpdateResponse>)
+  func addContactCard(consumerId: Swift.String, payload: EPINetworking.AddContactItemPayload, response: EPINetworking.LoadableSubject<EPINetworking.AddContactItemResponse>)
+  func removeProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, proxyId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.RemoveProxyResponse>)
+  func addProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.AddProxyPayload, response: EPINetworking.LoadableSubject<EPINetworking.AddProxyResponse>)
+  func validate(otp: EPINetworking.ProxyOTPPayload, at url: Foundation.URL, response: EPINetworking.LoadableSubject<Swift.Void>)
+  func requestNewOtp(at url: Foundation.URL, response: EPINetworking.LoadableSubject<EPINetworking.RequestOTPResponse>)
+  func editDisplayName(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.EditPaymentSourcePayload, response: EPINetworking.LoadableSubject<EPINetworking.EditPaymentSourceResponse>)
+}
+public struct PaymentSourceService : EPINetworking.PaymentSourceServicing {
+  public init(repository: any EPINetworking.PaymentSourceRepositoryProtocol)
+  @_Concurrency.MainActor public func updatePaymentSource(consumerId: Swift.String, payload: EPINetworking.PaymentSourceUpdatePayload, response: EPINetworking.LoadableSubject<EPINetworking.PaymentSourceUpdateResponse>)
+  @_Concurrency.MainActor public func addContactCard(consumerId: Swift.String, payload: EPINetworking.AddContactItemPayload, response: EPINetworking.LoadableSubject<EPINetworking.AddContactItemResponse>)
+  @_Concurrency.MainActor public func addProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.AddProxyPayload, response: EPINetworking.LoadableSubject<EPINetworking.AddProxyResponse>)
+  @_Concurrency.MainActor public func removeProxy(consumerId: Swift.String, paymentSourceProfileId: Swift.String, proxyId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.RemoveProxyResponse>)
+  @_Concurrency.MainActor public func validate(otp: EPINetworking.ProxyOTPPayload, at url: Foundation.URL, response: EPINetworking.LoadableSubject<Swift.Void>)
+  @_Concurrency.MainActor public func requestNewOtp(at url: Foundation.URL, response: EPINetworking.LoadableSubject<EPINetworking.RequestOTPResponse>)
+  @_Concurrency.MainActor public func editDisplayName(consumerId: Swift.String, paymentSourceProfileId: Swift.String, payload: EPINetworking.EditPaymentSourcePayload, response: EPINetworking.LoadableSubject<EPINetworking.EditPaymentSourceResponse>)
+}
+public protocol ProxyServicing {
+  func updateProxyIndicators(_ payload: EPINetworking.ProxyIndicatorRequestPayload, response: EPINetworking.LoadableSubject<EPINetworking.ProxyIndicatorResponsePayload>)
+  func fetchProxyInfo(_ proxyHash: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.ProxyCustomerDetailsResponse>)
+}
+public struct ProxyService : EPINetworking.ProxyServicing {
+  public init(repository: any EPINetworking.ProxyRepositoryProtocol)
+  @_Concurrency.MainActor public func updateProxyIndicators(_ payload: EPINetworking.ProxyIndicatorRequestPayload, response: EPINetworking.LoadableSubject<EPINetworking.ProxyIndicatorResponsePayload>)
+  @_Concurrency.MainActor public func fetchProxyInfo(_ proxyHash: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.ProxyCustomerDetailsResponse>)
+}
+public protocol WalletProvisioningServicing {
+  func createWalletProvisioning(walletId: Swift.String, payload: EPINetworking.CreateWalletProvisioningPayload, response: EPINetworking.LoadableSubject<EPINetworking.Provisioning>)
+  func fetchWalletProvisioning(walletId: Swift.String, provisioningId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.Provisioning>)
+  func fetchWalletProvisionings(walletId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.AllProvisioningsResponse>)
+}
+public struct WalletProvisioningService : EPINetworking.WalletProvisioningServicing {
+  public init(repository: any EPINetworking.WalletProvisioningRepositoryProtocol)
+  @_Concurrency.MainActor public func createWalletProvisioning(walletId: Swift.String, payload: EPINetworking.CreateWalletProvisioningPayload, response: EPINetworking.LoadableSubject<EPINetworking.Provisioning>)
+  @_Concurrency.MainActor public func fetchWalletProvisioning(walletId: Swift.String, provisioningId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.Provisioning>)
+  @_Concurrency.MainActor public func fetchWalletProvisionings(walletId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.AllProvisioningsResponse>)
+}
+public protocol WalletServicing {
+  func fetchWallet(walletId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.Wallet>)
+}
+public struct WalletService : EPINetworking.WalletServicing {
+  public init(repository: any EPINetworking.WalletRepositoryProtocol)
+  @_Concurrency.MainActor public func fetchWallet(walletId: Swift.String, response: EPINetworking.LoadableSubject<EPINetworking.Wallet>)
+}
+extension EPINetworking.ContentType : Swift.Equatable {}
+extension EPINetworking.ContentType : Swift.Hashable {}
+extension EPINetworking.ContentType : Swift.RawRepresentable {}
+extension EPINetworking.HTTPHeaderField : Swift.Hashable {}
+extension EPINetworking.HTTPHeaderField : Swift.RawRepresentable {}
+extension EPINetworking.HTTPMethod : Swift.Equatable {}
+extension EPINetworking.HTTPMethod : Swift.Hashable {}
+extension EPINetworking.HTTPMethod : Swift.RawRepresentable {}
+extension EPINetworking.ParameterEncoding : Swift.Equatable {}
+extension EPINetworking.ParameterEncoding : Swift.Hashable {}
+extension EPINetworking.NetworkErrorStatus : Swift.Equatable {}
+extension EPINetworking.NetworkErrorStatus : Swift.Hashable {}
+extension EPINetworking.NetworkErrorStatus : Swift.RawRepresentable {}
+extension EPINetworking.EPINetworkingLogLevel : Swift.Equatable {}
+extension EPINetworking.EPINetworkingLogLevel : Swift.Hashable {}
+extension EPINetworking.GrantType : Swift.Hashable {}
+extension EPINetworking.GrantType : Swift.RawRepresentable {}
+extension EPINetworking.PaymentSourceProxyType : Swift.Hashable {}
+extension EPINetworking.PaymentSourceProxyType : Swift.RawRepresentable {}
