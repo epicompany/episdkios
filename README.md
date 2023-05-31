@@ -1,5 +1,5 @@
 # EPI SDK
-=======
+--------
 
 [![Swift Version](https://img.shields.io/badge/Swift-5.5-orange.svg)](https://swift.org)
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)](https://swift.org/package-manager)
@@ -34,7 +34,7 @@ EPISDK can be easily integrated into your project using the Swift Package Manage
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/epicompany/episdk.git", from: "0.1.0")
+    .package(url: "https://github.com/epicompany/episdkios.git", from: "0.1.0")
 ]
 ```
 
@@ -45,7 +45,3 @@ To see EPI SDK in action, check out the [Example Application](./Examples/). that
 ## Documentation
 
 Comprehensive documentation for EPISDK is available [here](https://epicompany.github.io/docs/mobile/sdk/ios/EPINetworking/index.html). It provides detailed information on how to use EPI SDK, including API references and usage examples.
-
-## License
-
-EPI SDK is available under the [X Licence](). See the [LICENSE file]() for more information.
